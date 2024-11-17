@@ -30,7 +30,6 @@ const POST_GRAPHQL_FIELDS = `
 
 async function fetchGraphQL(query: string, preview = false): Promise<any> {
   const token = preview ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN : process.env.CONTENTFUL_ACCESS_TOKEN;
-  console.log("token", token);
   return fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
     {
@@ -82,7 +81,6 @@ export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
     }`,
     isDraftMode,
   );
-  console.log("getAllPosts", entries);
   return extractPostEntries(entries);
 }
 
