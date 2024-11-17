@@ -29,6 +29,8 @@ const POST_GRAPHQL_FIELDS = `
 `;
 
 async function fetchGraphQL(query: string, preview = false): Promise<any> {
+  const token = preview ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN : process.env.CONTENTFUL_ACCESS_TOKEN;
+  console.log("token", token);
   return fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
     {
@@ -36,9 +38,7 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${
-          preview
-            ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-            : process.env.CONTENTFUL_ACCESS_TOKEN
+          token
         }`,
       },
       body: JSON.stringify({ query }),
@@ -82,7 +82,7 @@ export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
     }`,
     isDraftMode,
   );
-  console.log(entries)
+  console.log("getAllPosts", entries);
   return extractPostEntries(entries);
 }
 

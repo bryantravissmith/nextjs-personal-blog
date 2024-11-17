@@ -78,12 +78,12 @@ function HeroPost({
 
 export default async function Page() {
   const { isEnabled } = draftMode();
+  console.log(isEnabled);
+  console.log(process.env.CONTENTFUL_ACCESS_TOKEN)
   const allPosts = await getAllPosts(isEnabled);
-
-  console.log("allPosts", allPosts);
+  console.log(allPosts)
   const heroPost = allPosts[0];
   const morePosts = allPosts.slice(1);
-
 
   return (
     <div className="container mx-auto px-5">
